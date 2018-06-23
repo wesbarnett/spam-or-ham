@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Spam or ham?</h1>
+    This is a simple Flask implementation of a spam classifier I
+    trained. Paste an email into the text box below, including the
+    header and the model will classify your email as 'SPAM' or 'HAM'.
+    See the <a href="https://github.com/wesbarnett/spam-or-ham">Github
+    page</a> for more information.
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.text.label }}<br>
+            {{ form.text(cols='96', rows='28') }}
+            {% for error in form.text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+{% endblock %}
